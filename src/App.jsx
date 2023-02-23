@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useRef, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [auth, setAuth] = useState({})
+
+  const formulario = useRef(null)
+
+  const handleInput = (e) => {
+    const {name,value} = e.target
+    setAuth({...auth,[name]:value})
+  }
+
+  const send = (e) => {
+    e.preventDefault()
+    console.log(auth)
+    formulario.current.reset()
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Ambiente desarrollo   + React </h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <form ref={formulario} onSubmit={send} className="App">
+      <h1>Form</h1>
+      <input onChange={handleInput} name="email" type="email" />
+      <input onChange={handleInput} name="password" type="password" />
+      <button>Submit</button>
+    </form>
+  );
 }
 
-export default App
+export default App;
