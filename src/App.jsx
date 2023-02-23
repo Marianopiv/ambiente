@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useState(null)
 
   const formulario = useRef(null)
 
@@ -16,6 +16,7 @@ function App() {
     e.preventDefault()
     console.log(auth)
     formulario.current.reset()
+    setAuth(null)
   }
 
   return (
@@ -23,7 +24,7 @@ function App() {
       <h1>Form</h1>
       <input onChange={handleInput} name="email" type="email" />
       <input onChange={handleInput} name="password" type="password" />
-      <button>Submit</button>
+      <button disabled={!auth}>Submit</button>
     </form>
   );
 }
